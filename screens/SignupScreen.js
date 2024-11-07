@@ -12,13 +12,13 @@ function SignupScreen() {
   async function signupHandler({email, password}) {
     setIsAuthenticating(true);
 
+    const token = await createUser(email, password);
     try {
-      const token = await createUser(email, password);
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert('Authentication failed', 'Could not create user, please check your input or try again later!');  
+      setIsAuthenticating(false);
     }
-    setIsAuthenticating(false);
   }
 
   if(isAuthenticating){
